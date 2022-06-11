@@ -23,7 +23,7 @@ import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdLocalShipping } from "react-icons/md";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSingleProduct } from "../Redux/products/action";
+import { addProductCart, getSingleProduct } from "../Redux/products/action";
 
 export default function Product() {
   const { id } = useParams();
@@ -40,6 +40,10 @@ export default function Product() {
   }, [dispatch, id]);
 
   // console.log(currentProduct);
+
+  const addToCartHandler = () => {
+    currentProduct && dispatch(addProductCart(currentProduct));
+  };
   return (
     <Container maxW={"7xl"}>
       <SimpleGrid
@@ -76,7 +80,9 @@ export default function Product() {
             </Text>
           </Box>
 
-          <Flex>{Rating({ rating: Number(currentProduct?.rating?.rate) })}</Flex>
+          <Flex>
+            {Rating({ rating: Number(currentProduct?.rating?.rate) })}
+          </Flex>
 
           <Stack
             spacing={{ base: 4, sm: 6 }}
@@ -117,6 +123,7 @@ export default function Product() {
               transform: "translateY(2px)",
               boxShadow: "lg",
             }}
+            onClick={addToCartHandler}
           >
             Add to cart
           </Button>
@@ -133,7 +140,7 @@ export default function Product() {
 
 function Rating({ rating }) {
   return (
-    <Box  display="flex">
+    <Box display="flex">
       {Array(5)
         .fill("")
         .map((_, i) => {

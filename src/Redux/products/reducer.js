@@ -1,10 +1,12 @@
-import { type } from "@testing-library/user-event/dist/type";
+
 import * as types from "./actionTypes";
 const initialState = {
   products: [],
   error: "",
-  currentProduct:{},
-  loading:false
+  currentProduct: {},
+  loading: false,
+  cart: [],
+  orders:[]
 };
 
 const reducer = (state = initialState, action) => {
@@ -32,10 +34,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
       };
 
-
-
-
-      case types.GET_SINGLE_PRODUCT_REQUEST:
+    case types.GET_SINGLE_PRODUCT_REQUEST:
       return {
         ...state,
         error: "",
@@ -45,7 +44,7 @@ const reducer = (state = initialState, action) => {
     case types.GET_SINGLE_PRODUCT_SUCCESS:
       return {
         ...state,
-        currentProduct:payload,
+        currentProduct: payload,
         error: "",
         loading: false,
       };
@@ -56,9 +55,97 @@ const reducer = (state = initialState, action) => {
         error: payload,
         loading: false,
       };
-    
-    
-      default:
+
+    //ADD TO CART
+
+    case types.ADD_PRODUCT_CART_REQUEST:
+      return {
+        ...state,
+        error: "",
+        loading: true,
+      };
+
+    case types.ADD_PRODUCT_CART_SUCCESS:
+      return {
+        ...state,
+        cart: [...state.cart, payload],
+        error: "",
+        loading: false,
+      };
+
+    case types.ADD_PRODUCT_CART_FAILURE:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      };
+
+    //FETCH CART
+
+    case types.FETCH_CART_REQUEST:
+      return {
+        ...state,
+        error: "",
+        loading: true,
+      };
+
+    case types.FETCH_CART_SUCCESS:
+      return {
+        ...state,
+        cart: [...payload],
+        error: "",
+        loading: false,
+      };
+
+    case types.FETCH_CART_FAILURE:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      };
+
+    case types.REMOVE_PRODUCT_CART_REQUEST:
+      return {
+        ...state,
+        error: "",
+        loading: true,
+      };
+
+    case types.REMOVE_PRODUCT_CART_FAILURE:
+      return {
+        ...state,
+        error: "",
+        loading: true,
+      };
+
+
+//FETCH ORDERS 
+
+case types.FETCH_ORDERS_REQUEST:
+  return {
+    ...state,
+    error: "",
+    loading: true,
+  };
+
+case types.FETCH_ORDERS_SUCCESS:
+  return {
+    ...state,
+    orders: [...payload],
+    error: "",
+    loading: false,
+  };
+
+case types.FETCH_ORDERS_FAILURE:
+  return {
+    ...state,
+    error: payload,
+    loading: false,
+  };
+
+
+
+    default:
       return state;
   }
 };
