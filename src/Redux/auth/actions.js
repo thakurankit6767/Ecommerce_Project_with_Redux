@@ -8,23 +8,25 @@ const signInRequest = () => {
     type: SIGNIN_REQUEST,
   };
 };
-const signInSuccess = () => {
+const signInSuccess = (payload) => {
   return {
     type: SIGNIN_SUCCESS,
+    payload,
   };
 };
 
-const signInFailure = () => {
+const signInFailure = (payload) => {
   return {
     type: SIGNIN_FAILURE,
+    payload,
   };
 };
 
 const signIn = (payload) => (dispatch) => {
   dispatch(signInRequest());
   Axios.post("/api/login", payload, { baseURL: "https://reqres.in" })
-    .then((r) => console.log(r))
-    .catch((e) => console.log(e));
+    .then((r) =>dispatch(signInSuccess(r.data)))
+    .catch((e) => dispatch(signInFailure(e.data)));
 };
 
 export { signIn };

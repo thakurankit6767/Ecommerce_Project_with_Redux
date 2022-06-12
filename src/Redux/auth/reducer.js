@@ -2,6 +2,7 @@ import { SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNIN_FAILURE } from "./actions";
 const initialState = {
   auth: false,
   token: "",
+  error:false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,18 +12,22 @@ const reducer = (state = initialState, action) => {
       return {
         auth: false,
         token: "",
+        error:false,
       };
 
     case SIGNIN_SUCCESS:
+        console.log(payload)
       return {
         auth: true,
-        token: payload,
+        token: payload.token,
+        error:false
       };
 
     case SIGNIN_FAILURE:
       return {
         auth: false,
-        token:""
+        token:"",
+        error:payload,
       };
 
     default:

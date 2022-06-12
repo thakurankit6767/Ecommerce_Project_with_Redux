@@ -3,6 +3,7 @@ import { Box, Stack } from "@chakra-ui/react";
 import FilterComponent from "../Components/FilterComponent";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../Redux/products/action";
+import { useNavigate } from "react-router-dom";
 import {
   Center,
   useColorModeValue,
@@ -10,6 +11,8 @@ import {
   Text,
   Image,
   Flex,
+  Button,
+  Link,
 } from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 
@@ -17,7 +20,10 @@ const Products = () => {
   const products = useSelector((store) => store.ecommerceData.products);
   // console.log(products)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  
+ 
   useEffect(() => {
     if (products?.length === 0) {
       let params = {
@@ -27,6 +33,7 @@ const Products = () => {
     }
   }, [dispatch, products?.length, searchParams]);
   console.log(products);
+
   return (
     <div>
       <Box>
@@ -34,14 +41,15 @@ const Products = () => {
           <Box>
             <FilterComponent />
           </Box>
-          
+
           <Box>
             <Heading as="h3">Products</Heading>
-            
+
             <Flex flexWrap="wrap" justifyContent="space-around">
               {products.map((product) => {
                 return (
                   <ProductSimple
+                    id={product.id}
                     key={product.id}
                     image={product.image}
                     title={product.title}
@@ -50,10 +58,9 @@ const Products = () => {
                 );
               })}
             </Flex>
-            
+
             {/* <ProductSimple /> */}
           </Box>
-        
         </Stack>
       </Box>
     </div>
@@ -62,7 +69,11 @@ const Products = () => {
 
 export default Products;
 
-function ProductSimple({image, title, price}) {
+function ProductSimple({ id, image, title, price }) {
+  const navigate = useNavigate();
+  const handleNavigateProduct = (id) => {
+    navigate(`${id}`);
+  };
   return (
     <Center py={12}>
       <Box
@@ -81,7 +92,7 @@ function ProductSimple({image, title, price}) {
           mt={-12}
           pos={"relative"}
           height={"230px"}
-         c
+          c
           _groupHover={{
             _after: {
               filter: "blur(20px)",
@@ -108,6 +119,9 @@ function ProductSimple({image, title, price}) {
               $199
             </Text>
           </Stack>
+          <Button onClick={() => handleNavigateProduct(id)}>
+            View Product
+          </Button>
         </Stack>
       </Box>
     </Center>

@@ -15,6 +15,8 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Portal,
+  Image,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -26,6 +28,7 @@ import Profile from "./Profile";
 import { BsCart3 } from "react-icons/bs";
 import CartCounter from "./CartCounter";
 import { Link as RouterLink } from "react-router-dom";
+import Product from "../Pages/Product";
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -63,8 +66,21 @@ const Navbar = () => {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            Logo
+            <Link as={RouterLink} to="/">
+              <Image
+                src="https://t3.ftcdn.net/jpg/02/45/84/16/360_F_245841615_d7QzRv937jfiC176rmKK60ckNXU9V76z.jpg"
+                width={"80px"}
+                height={"70px"}
+              />
+            </Link>
           </Text>
+          <Flex>
+            <Link as={RouterLink} to="/products">
+              <Box marginTop={"20px"} fontWeight={"bold"} marginLeft={"20px"}>
+                Products
+              </Box>
+            </Link>
+          </Flex>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             {/* <DesktopNav /> */}
@@ -83,6 +99,7 @@ const Navbar = () => {
               <Icon as={BsCart3} boxSize="2rem" />
             </Box>
           </Link>
+
           <Profile />
         </Stack>
       </Flex>

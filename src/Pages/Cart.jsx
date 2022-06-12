@@ -7,6 +7,7 @@ import {
   Text,
   Button,
   useColorModeValue,
+  Link,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,6 +47,7 @@ const Cart = () => {
         })}
 
       <Checkout cart={cart} checkoutHandler={checkoutHandler} />
+     
     </Box>
   );
 };

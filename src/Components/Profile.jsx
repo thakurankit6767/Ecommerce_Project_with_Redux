@@ -9,6 +9,7 @@ import {
   WrapItem,
   Avatar,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
@@ -25,11 +26,20 @@ const Profile = () => {
             <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
           </WrapItem>
         </MenuButton>
-        <MenuList>
-          <MenuItem>Cart</MenuItem>
-          <MenuItem>Your Orders</MenuItem>
-          <MenuItem>Login</MenuItem>
-          <MenuItem>LogOut</MenuItem>
+        <MenuList zIndex={1000}>
+          <Link to="/cart">
+            <MenuItem>Cart </MenuItem>
+          </Link>
+
+          <Link to="/orders">
+            <MenuItem>Your Orders</MenuItem>
+          </Link>
+          <Link to="/login">
+            <MenuItem>Login</MenuItem>
+          </Link>
+          <Link to="/logout">
+            <MenuItem>LogOut</MenuItem>
+          </Link>
         </MenuList>
       </Menu>
     </Flex>
