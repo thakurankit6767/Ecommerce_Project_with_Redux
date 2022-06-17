@@ -263,6 +263,16 @@ const fetchOrders = (payload) => (dispatch) => {
   );
 };
 
+
+export const searchData = (payload) => ({
+  type: SEARCH_DATA,
+  payload: payload,
+});
+
+
+
+
+
 export {
   fetchData,
   getSingleProduct,

@@ -32,7 +32,7 @@ const Products = () => {
       dispatch(fetchData(params));
     }
   }, [dispatch, products?.length, searchParams]);
-  console.log(products);
+  console.log("data:",products);
 
   return (
     <div>

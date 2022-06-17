@@ -6,7 +6,8 @@ const initialState = {
   currentProduct: {},
   loading: false,
   cart: [],
-  orders:[]
+  orders:[],
+  search:"",
 };
 
 const reducer = (state = initialState, action) => {
@@ -142,6 +143,13 @@ case types.FETCH_ORDERS_FAILURE:
     error: payload,
     loading: false,
   };
+
+ 
+  //search data
+
+  // case types.SEARCH_DATA:
+  //   return { ...state, search: payload };
+
 
 
 

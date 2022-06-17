@@ -16,9 +16,12 @@ import {
 import { Text, Checkbox, CheckboxGroup, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import ReactPaginate from "react-paginate";
+
 const FilterComponents = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
+  // const [page, setPage] = useState(0);
   console.log(searchParams.getAll("category"));
 
   const [categoryValues, setCategoryValues] = useState(
@@ -39,11 +42,25 @@ const FilterComponents = () => {
     }
   }, [categoryValues, dispatch, searchParams, setSearchParams]);
 
+  // const itemLim = 8;
+  // const pagesVisit = page * itemLim;
+  // const changePagePagination = ({ selected }) => {
+  //   setPage(selected);
+  // };
+  // const pageTotal = Math.ceil(values.length / itemLim);
+
+ 
+ 
+  // pagination 
+  // .slice(pagesVisit, pagesVisit + itemLim)
+
   return (
+    
     <Box>
       <Box display={{ base: "none", md: "block" }}>
         <Text fontSize="2xl">Filters</Text>
         <Text>Category</Text>
+        
         <CheckboxGroup
           colorScheme="green"
           defaultValue={categoryValues}
@@ -58,6 +75,20 @@ const FilterComponents = () => {
           </VStack>
         </CheckboxGroup>
       </Box>
+
+      {/* <Box>
+        <div id="paginationdiv">
+          <ReactPaginate
+            className="paginate"
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageTotal}
+            onPageChange={changePagePagination}
+            containerClassName={"paginationarrow"}
+          />
+        </div>
+      </Box> */}
+
       <Box display={{ base: "block", md: "none" }} p="0rem 2rem">
         <Menu closeOnSelect={false}>
           <MenuButton as={Button} colorScheme="blue">
